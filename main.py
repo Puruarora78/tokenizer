@@ -2,6 +2,7 @@ import re
 
 
 #  any data you want to tokenize
+#  encoding because the book had many weird character
 with open("psychology of money.txt", "r", encoding="utf-8") as f:
     raw_data = f.read()
 
@@ -69,17 +70,16 @@ class Tokenizer2:
         return ids
 
     def decoder(self,token_id):
-        #symbols =
         text = " ".join([self.int_in_string_out[i] for i in token_id])
         text = re.sub(r"\s+([!@#$%^&*()_+|~`=\\\[\]{};:'\",.<>/?])",r"\1",text)
         return text
     
 tokenizer_obj_2 = Tokenizer2(vocabulary)
 
-text = "their greatest fear was puru"
-token_id = tokenizer_obj_2.encode(text)
-# print(token_id)
+# text = "their greatest fear was puru"
+# token_id = tokenizer_obj_2.encode(text)
+#  print(token_id)
 
-ids = [6206, 3529, 3107, 6638, 6898]
-token_ids = tokenizer_obj_2.decoder(ids)
-print(token_ids)
+# ids = [6206, 3529, 3107, 6638, 6898]
+# token_ids = tokenizer_obj_2.decoder(ids)
+# print(token_ids)
