@@ -30,7 +30,7 @@ class Tokenizer1:
         # split the words
         my_symbols = r"([!@#$%^&*()_+|~`=\\\[\]{};:'\",.<>/?\s]+)"
         token_text = re.split(my_symbols, text)
-        # first strip is actually striping spaces and \n and secondone is to print the remaining string left after the strip
+        # first strip is actually striping spaces and \n and secondone is to print the remaining string left after the strip                 
         token_text = [word.strip() for word in token_text if word.strip()]
         # id
         token_ids = [self.string_in_int_out[s] for s in token_text]
@@ -46,9 +46,9 @@ class Tokenizer1:
 tokenizer_obj_1 = Tokenizer1(vocabulary)
 
 # test
-# # text = "their greatest fear was that somebody would discover it."
-# # token_ids = tokenizer.encode(text)
-# # print(token_ids)
+text = "He also had a relationship with money I’d describe as a mix of insecurity and childish stupidity."
+token_ids = tokenizer.encode(text)
+print(token_ids)
 
 # # ids =[6206, 3529, 3107, 6638, 6203, 5711, 6830, 2747, 3912, 70]
 # # token_text = tokenizer.decode(ids)
