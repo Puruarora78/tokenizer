@@ -2,7 +2,7 @@ import re
 
 
 #  any data you want to tokenize
-with open("psychology of money.txt", "r") as f:
+with open("psychology of money.txt", "r", encoding="utf-8") as f:
     raw_data = f.read()
 
 # symbols
@@ -24,7 +24,7 @@ vocabulary = {token: i for i, token in enumerate(order_Token_Text)}
 class Tokenizer1:
     def __init__(self,vocabulary):
         self.string_in_int_out = vocabulary
-        self.int_in_strint_out = {i:s for s,i in vocabulary.items()}
+        self.int_in_string_out = {i:s for s,i in vocabulary.items()}
 
     def encode(self, text):
         # split the words
@@ -38,7 +38,7 @@ class Tokenizer1:
     
     def decode(self, token_ids):
         # string
-        text = " ".join([self.int_in_strint_out[i] for i in token_ids])
+        text = " ".join([self.int_in_string_out[i] for i in token_ids])
         clean_text = re.sub(r"\s+([!@#$%^&*()_+|~`=\\\[\]{};:'\",.<>/?])", r"\1", text)
         return clean_text
     
@@ -46,9 +46,9 @@ class Tokenizer1:
 tokenizer_obj_1 = Tokenizer1(vocabulary)
 
 # test
-text = "He also had a relationship with money I’d describe as a mix of insecurity and childish stupidity."
-token_ids = tokenizer.encode(text)
-print(token_ids)
+# text = "He also had a relationship with money I’d describe as a mix of insecurity and childish stupidity."
+# token_ids = tokenizer_obj_1.encode(text)
+# print(token_ids)
 
 # # ids =[6206, 3529, 3107, 6638, 6203, 5711, 6830, 2747, 3912, 70]
 # # token_text = tokenizer.decode(ids)
@@ -64,8 +64,8 @@ class Tokenizer2:
         token_text = re.split(symbols,text)
         token_text = [word.strip() for word in token_text if word.strip()]
         #first word = print word if word in self.str or unk for word in vocab
-        token_text = [word if word in self.string_in_int_out else "<|unk|>" for word in token_text]
-        ids = [self.string_in_int_out[s] for s in token_text]
+        unknown_id = self.string_in_int_out.get("<|unk|>")
+        ids = [self.string_in_int_out.get(w, unknown_id) for w in token_text]
         return ids
 
     def decoder(self,token_id):
@@ -78,7 +78,7 @@ tokenizer_obj_2 = Tokenizer2(vocabulary)
 
 text = "their greatest fear was puru"
 token_id = tokenizer_obj_2.encode(text)
-print(token_id)
+# print(token_id)
 
 ids = [6206, 3529, 3107, 6638, 6898]
 token_ids = tokenizer_obj_2.decoder(ids)
